@@ -63,6 +63,15 @@ void MainWindow::on_pushButton_clicked()
 
     } else {
         ui->pushButton->setText("Start");
+        QImage image(4,2, QImage::Format_RGB32);
+        for(int i=0; i<4; i++){
+            image.setPixel(i,0,qRgb(i*20,i*6,0));
+            image.setPixel(i,1,qRgb(i*18,i*4,0));
+        }
+        const int w = ui->label1->width();
+        const int h = ui->label1->height();
+        ui->label1->setPixmap(QPixmap::fromImage(image).scaled(w,h,Qt::IgnoreAspectRatio));
+        ui->label1->show();
         *createLoop = 0;
     }
 }
