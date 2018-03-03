@@ -19,15 +19,17 @@ public:
     ~MainWindow();
 
 public slots:
-    void imageShow(QVector<QRgb>&);
+    void imageShow(QVector<QRgb>);
 
 private slots:
     void on_pushButton_clicked();
     void processResults();
     void errorSerialQuit();
+    void on_comboBox_currentIndexChanged(int index);
 
 signals:
     void launchNucleo();
+    void changeMode(int);
 
 private:
     Ui::MainWindow *ui;

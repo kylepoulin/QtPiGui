@@ -14,11 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
     imgCreator = new ImageCreator();
     imgCreator->moveToThread(workerThread);
 
+    qRegisterMetaType<QVector<QRgb>>("QVector<QRgb>");
+
     QObject::connect(workerThread, SIGNAL(finished()), imgCreator, SIGNAL(QObjet::deleteLater()));
     QObject::connect(this, SIGNAL(launchNucleo()), imgCreator, SLOT(doWork()));
     QObject::connect(imgCreator, SIGNAL(resultsReady()), this, SLOT(processResults()));
-    QObject::connect(imgCreator, SIGNAL(sendImg(QVector<QRgb>&)), this, SLOT(imageShow(QVector<QRgb>&)));
+    QObject::connect(imgCreator, SIGNAL(sendImg(QVector<QRgb>)), this, SLOT(imageShow(QVector<QRgb>)));
     QObject::connect(imgCreator, SIGNAL(errorQuit()), this, SLOT(errorSerialQuit()));
+    QObject::connect( this, SIGNAL(changeMode(int)), imgCreator, SLOT(changeMode(int)));
 
     createLoop = imgCreator->serveLoopEnder();
     *createLoop = 0;
@@ -76,12 +79,12 @@ void MainWindow::on_pushButton_clicked()
     }
 }
 
-void MainWindow::imageShow(QVector<QRgb>& pixels)
+void MainWindow::imageShow(QVector<QRgb> pixels)
 {
     QImage image(8,2,QImage::Format_RGB32);
     for(int i=0; i<8; i++){
         image.setPixel(i,0,pixels[i]);
-        image.setPixel(i+8,1,pixels[i+8]);
+        image.setPixel(i,1,pixels[i+8]);
     }
     const int w = ui->label1->width();
     const int h = ui->label1->height();
@@ -97,4 +100,18 @@ void MainWindow::errorSerialQuit()
 void MainWindow::processResults()
 {
 
+}
+
+void MainWindow::on_comboBox_currentIndexChanged(int index)
+{
+    if(index==0){
+        qWarning("Time Chart");
+        emit changeMode(index);
+    } else if (index == 1){
+        qWarning("Calibrate");
+        emit changeMode(index);
+    } else {
+        qWarning("Brain Display");
+        emit changeMode(index);
+    }
 }

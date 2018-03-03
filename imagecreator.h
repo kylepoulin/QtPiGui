@@ -13,16 +13,19 @@ public:
     explicit ImageCreator(QObject *parent = 0);
     bool* serveLoopEnder();
 
+
 signals:
-    void sendImg(QVector<QRgb>&);
+    void sendImg(QVector<QRgb>);
     void resultsReady();
     void errorQuit();
 
 public slots:
     void doWork();
+    void changeMode(int index=0);
 
 private:
     bool createLoop;
+    int mode;
 };
 
 #endif // IMAGECREATOR_H
