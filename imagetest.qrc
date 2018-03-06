@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>brain.bmp</file>
+        <file>ledScales.txt</file>
+    </qresource>
+</RCC>

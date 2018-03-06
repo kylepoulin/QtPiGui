@@ -36,3 +36,6 @@ HEADERS  += mainwindow.h \
     imagecreator.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    imagetest.qrc

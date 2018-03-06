@@ -20,9 +20,9 @@ public:
 
 public slots:
     void imageShowCalibrate(QVector<QRgb>);
-    void imageShow(QVector<uint8_t>);
+    void imageShowTimeChart(QVector<uint8_t>);
+    void imageShowBrainImage(QVector<uint8_t>);
     void calibrationPercentage(float);
-    void calibrationSuccess();
 
 private slots:
     void on_pushButton_clicked();

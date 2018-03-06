@@ -15,17 +15,22 @@ public:
 
 
 signals:
-    void sendImg(QVector<QRgb>);
+    void sendImgCalibrate(QVector<QRgb>);
+    void sendImg(QVector<uint8_t>);
+    void calibrationCompletionPercentage(float);
+    void calibrationSuccess();
     void resultsReady();
     void errorQuit();
 
 public slots:
     void doWork();
+    void calibrate();
     void changeMode(int index=0);
 
 private:
     bool createLoop;
     int mode;
+    float ledScales[16];
 };
 
 #endif // IMAGECREATOR_H
