@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <math.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,6 +15,15 @@ MainWindow::MainWindow(QWidget *parent) :
     imgCreator = new ImageCreator();
     imgCreator->moveToThread(workerThread);
     workerThread->start();
+
+    oldImage = new QImage(3750,255, QImage::Format_RGB32);
+    oldImage->fill(qRgb(255,255,255));
+    oldImagePixelsLeft = new QVector<uint8_t>(3750);
+    oldImagePixelsLeft->fill(113);
+    oldImagePixelsRight = new QVector<uint8_t>(3750);
+    oldImagePixelsRight->fill(111);
+    oldImagePixelsTotal = new QVector<uint8_t>(3750);
+    oldImagePixelsTotal->fill(112);
 
     qRegisterMetaType<QVector<QRgb>>("QVector<QRgb>");
 
@@ -46,6 +56,10 @@ MainWindow::~MainWindow()
     if(originalBrain!=NULL){
         delete originalBrain;
     }
+    delete oldImage;
+    delete oldImagePixelsLeft;
+    delete oldImagePixelsRight;
+    delete oldImagePixelsTotal;
     delete imgCreator;
     delete ui;
 }
@@ -127,7 +141,43 @@ void MainWindow::imageShow(QVector<uint8_t> means)
 {
     switch(mode){
         case 0:
+        {
+            //round means for left and right optodes
+            //0 4 8 12 are 860 for left? 2 6 10 14 are 860 for right
+            //this might be better done in the imgCreator class lol probably going to crash
+            uint8_t meanleft=0, meanright=0, meantotal=0;
+            meanleft = std::round((means[0] + means[4] +means[8] +means[12])/4);
+            meanright = std::round((means[2] + means[6] +means[10] +means[14])/4);
+            meantotal = std::round((meanleft+meanright)/2);
+            for(int i=0; i<3749; i++){
+                oldImage->setPixel(i,oldImagePixelsLeft->at(i),qRgb(255,255,255));
+                oldImage->setPixel(i,oldImagePixelsLeft->at(i+1),qRgb(200,0,0));
 
+                oldImage->setPixel(i,oldImagePixelsRight->at(i),qRgb(255,255,255));
+                oldImage->setPixel(i,oldImagePixelsRight->at(i+1),qRgb(0,200,0));
+
+                oldImage->setPixel(i,oldImagePixelsTotal->at(i),qRgb(255,255,255));
+                oldImage->setPixel(i,oldImagePixelsTotal->at(i+1),qRgb(0,0,200));
+            }
+            oldImage->setPixel(3749,meanleft,qRgb(200,0,0));
+            oldImage->setPixel(3749, meanright, qRgb(0,200,0));
+            oldImage->setPixel(3749, meantotal, qRgb(0,0,200));
+
+            oldImagePixelsLeft->removeFirst();
+            oldImagePixelsRight->removeFirst();
+            oldImagePixelsTotal->removeFirst();
+
+            oldImagePixelsLeft->append(meanleft);
+            oldImagePixelsRight->append(meanright);
+            oldImagePixelsTotal->append(meantotal);
+
+            int w = ui->label1->width();
+            int h = ui->label1->height();
+            ui->label1->setPixmap(QPixmap::fromImage(*oldImage).scaled(w,h,Qt::IgnoreAspectRatio));
+            ui->label1->show();
+            break;
+        }
+        case 1:
             break;
         case 2:
 

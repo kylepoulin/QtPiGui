@@ -210,7 +210,7 @@ void ImageCreator::doWork()
                     for(int i=0; i<16; i++){
                         double earlySlope=0;
                         double laterSlope=0;
-                        for(int j=0; j<5; j++){
+                        for(int j=0; j<round(slopeMeanArraySize/10); j++){
                             earlySlope += slopeVectors[i][j];
                             laterSlope += slopeVectors[i][slopeVectors[i].size()-1-j];
 
@@ -218,7 +218,9 @@ void ImageCreator::doWork()
                         }
                         earlySlope = earlySlope*10/slopeMeanArraySize;
                         laterSlope = laterSlope*10/slopeMeanArraySize;
-                        means[i] = floor((laterSlope-earlySlope)/slopeVectors[i].size());
+                        means[i] = round((laterSlope-earlySlope)/slopeVectors[i].size());
+                        //have to verify that the slopes are ~= and opposite to represent
+                        //oxygenation difference
                     }
                 }
                 emit sendImg(means);

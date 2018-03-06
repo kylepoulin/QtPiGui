@@ -42,6 +42,11 @@ private:
     bool* createLoop;
     QImage* originalBrain;
     int mode;
+    QImage* oldImage;
+    QVector<uint8_t>* oldImagePixelsLeft;
+    QVector<uint8_t>* oldImagePixelsRight;
+    QVector<uint8_t>* oldImagePixelsTotal;
+
 };
 
 #endif // MAINWINDOW_H
