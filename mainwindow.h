@@ -20,7 +20,8 @@ public:
 
 public slots:
     void imageShowCalibrate(QVector<QRgb>);
-    void imageShow(QVector<uint8_t>);
+    void imageShowChart(int,int,int);
+    void imageShowBrain(int *ledSendings);
     void calibrationPercentage(float);
     void calibrationSuccess();
 
@@ -31,8 +32,9 @@ private slots:
     void on_comboBox_currentIndexChanged(int index);
 
 signals:
-    void launchNucleoDisplay();
+    void launchNucleoChart();
     void launchNucleoCalibrate();
+    void launchNucleoBrain();
     void changeMode(int);
 
 private:
@@ -43,9 +45,10 @@ private:
     QImage* originalBrain;
     int mode;
     QImage* oldImage;
-    QVector<uint8_t>* oldImagePixelsLeft;
-    QVector<uint8_t>* oldImagePixelsRight;
-    QVector<uint8_t>* oldImagePixelsTotal;
+    QVector<int>* imagePixelsLeft;
+    QVector<int>* imagePixelsRight;
+    QVector<int>* imagePixelsTotal;
+    int chartSize;
 
 };
 

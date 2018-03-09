@@ -16,14 +16,16 @@ public:
 
 signals:
     void sendImgCalibrate(QVector<QRgb>);
-    void sendImg(QVector<uint8_t>);
+    void sendImgChart(int,int,int);
+    void sendImgBrain(int*);
     void calibrationCompletionPercentage(float);
     void calibrationSuccess();
     void resultsReady();
     void errorQuit();
 
 public slots:
-    void doWork();
+    void doWorkChart();
+    void doWorkBrain();
     void calibrate();
     void changeMode(int index=0);
 
