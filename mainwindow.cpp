@@ -155,37 +155,37 @@ void MainWindow::imageShowCalibrate(QVector<QRgb> pixels)
 void MainWindow::imageShowBrain(int* ledSendings){
     QImage image(*originalBrain);
     //left side
-    for(int i=std::round(image.width()/3-60); i<std::round(image.width()/3); i++){
-        for(int j=std::round(image.height()/2); j>std::round(image.height()/2-60); j--){
+    for(int i=std::round(image.width()/3-120); i<std::round(image.width()/3); i++){
+        for(int j=std::round(image.height()/2); j>std::round(image.height()/2-120); j--){
             if(image.pixelColor(i,j).red()>113){
-                image.setPixel(i,j,qRgb(ledSendings[0]-std::round((image.width()/3-i))-std::round((image.height()/2-j)),0,0));
+                image.setPixel(i,j,qRgb(255,255-ledSendings[0],255-ledSendings[0]));
             } else {
                 image.setPixel(i,j,qRgb(ledSendings[0],20,20));
             }
         }
     }
-    for(int i=std::round(image.width()/3-60); i<std::round(image.width()/3); i++){
-        for(int j=std::round(image.height()/2+1); j<std::round(image.height()/2+60); j++){
+    for(int i=std::round(image.width()/3-120); i<std::round(image.width()/3); i++){
+        for(int j=std::round(image.height()/2+1); j<std::round(image.height()/2+120); j++){
             if(image.pixelColor(i,j).red()>113){
-                image.setPixel(i,j,qRgb(ledSendings[2],0,0));
+                image.setPixel(i,j,qRgb(255,255-ledSendings[2],255-ledSendings[2]));
             } else {
                 image.setPixel(i,j,qRgb(ledSendings[2],20,20));
             }
         }
     }
-    for(int i=std::round(image.width()/3); i<std::round(image.width()/3+60); i++){
-        for(int j=std::round(image.height()/2); j>std::round(image.height()/2-60); j--){
+    for(int i=std::round(image.width()/3); i<std::round(image.width()/3+120); i++){
+        for(int j=std::round(image.height()/2); j>std::round(image.height()/2-120); j--){
             if(image.pixelColor(i,j).red()>113){
-                image.setPixel(i,j,qRgb(ledSendings[4],0,0));
+                image.setPixel(i,j,qRgb(255,255-ledSendings[4],255-ledSendings[4]));
             } else {
                 image.setPixel(i,j,qRgb(ledSendings[4],20,20));
             }
         }
     }
-    for(int i=std::round(image.width()/3); i<std::round(image.width()/3+60); i++){
-        for(int j=std::round(image.height()/2+1); j<std::round(image.height()/2+60); j++){
+    for(int i=std::round(image.width()/3); i<std::round(image.width()/3+120); i++){
+        for(int j=std::round(image.height()/2+1); j<std::round(image.height()/2+120); j++){
             if(image.pixelColor(i,j).red()>113){
-                image.setPixel(i,j,qRgb(ledSendings[6],0,0));
+                image.setPixel(i,j,qRgb(255,255-ledSendings[6],255-ledSendings[6]));
             } else {
                 image.setPixel(i,j,qRgb(ledSendings[6],20,20));
             }
@@ -193,37 +193,41 @@ void MainWindow::imageShowBrain(int* ledSendings){
         }
     }
     //right side
-    for(int i=std::round(image.width()*2/3-60); i<std::round(image.width()*2/3); i++){
-        for(int j=std::round(image.height()/2); j>std::round(image.height()/2-60); j--){
+    for(int i=std::round(image.width()*2/3-120); i<std::round(image.width()*2/3); i++){
+        for(int j=std::round(image.height()/2); j>std::round(image.height()/2-120); j--){
             if(image.pixelColor(i,j).red()>113){
-                image.setPixel(i,j,qRgb(ledSendings[1],0,0));
+                image.setPixel(i,j,qRgb(255,255-ledSendings[1],255-ledSendings[1]));
             } else {
                 image.setPixel(i,j,qRgb(ledSendings[1],20,20));
             }
 
         }
     }
-    for(int i=std::round(image.width()*2/3-60); i<std::round(image.width()*2/3); i++){
-        for(int j=std::round(image.height()/2+1); j<std::round(image.height()/2+60); j++){
+    for(int i=std::round(image.width()*2/3-120); i<std::round(image.width()*2/3); i++){
+        for(int j=std::round(image.height()/2+1); j<std::round(image.height()/2+120); j++){
             if(image.pixelColor(i,j).red()>113){
-                image.setPixel(i,j,qRgb(ledSendings[3],0,0));
+                image.setPixel(i,j,qRgb(255,255-ledSendings[3],255-ledSendings[3]));
             } else {
                 image.setPixel(i,j,qRgb(ledSendings[3],20,20));
             }
         }
     }
-    for(int i=std::round(image.width()*2/3); i<std::round(image.width()*2/3+60); i++){
-        for(int j=std::round(image.height()/2); j>std::round(image.height()/2-60); j--){
+    for(int i=std::round(image.width()*2/3); i<std::round(image.width()*2/3+120); i++){
+        for(int j=std::round(image.height()/2); j>std::round(image.height()/2-120); j--){
             if(image.pixelColor(i,j).red()>113){
-                image.setPixel(i,j,qRgb(ledSendings[5],0,0));
+                image.setPixel(i,j,qRgb(255,255-ledSendings[5],255-ledSendings[5]));
             } else {
                 image.setPixel(i,j,qRgb(ledSendings[5],20,20));
             }
         }
     }
-    for(int i=std::round(image.width()*2/3); i<std::round(image.width()*2/3+60); i++){
-        for(int j=std::round(image.height()/2+1); j<std::round(image.height()/2+60); j++){
-            image.setPixel(i,j,qRgb(ledSendings[7],0,0));
+    for(int i=std::round(image.width()*2/3); i<std::round(image.width()*2/3+120); i++){
+        for(int j=std::round(image.height()/2+1); j<std::round(image.height()/2+120); j++){
+            if(image.pixelColor(i,j).red()>113){
+                image.setPixel(i,j,qRgb(255,255-ledSendings[7],255-ledSendings[7]));
+            } else {
+                image.setPixel(i,j,qRgb(ledSendings[7],0,0));
+            }
         }
     }
     const int w = ui->label1->width();
