@@ -161,6 +161,10 @@ void ImageCreator::doWorkBrain()
     uint8_t std;
     bool reading = 0;
     int mapIt = 0;
+    digitalWrite(8,1);
+    QThread::usleep(500);
+    digitalWrite(8,0);
+    serialFlush(fd);
     while(createLoop){
         while(true&&createLoop){
             QThread::usleep(100);
@@ -207,6 +211,11 @@ void ImageCreator::doWorkBrain()
         }
         mapIt++;
     }
+    serialClose(fd);
+    serialFlush(fd);
+    digitalWrite(8,1);
+    QThread::usleep(500);
+    digitalWrite(8,0);
 }
 
 void ImageCreator::doWorkChart()
